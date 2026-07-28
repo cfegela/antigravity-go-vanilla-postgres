@@ -22,7 +22,11 @@
         <div class="auth-card">
             <div class="auth-header">
                 <div class="logo">
-                    <span class="logo-icon">⚡</span>
+                    <span class="logo-icon">
+                        <svg class="logo-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </span>
                     <span class="logo-text">Task<span class="highlight">Flow</span></span>
                 </div>
                 <p class="auth-subtitle">Containerized Task Management Powered by Go & Postgres</p>
@@ -71,9 +75,18 @@
             </form>
 
             <div class="auth-footer">
-                <span class="badge-tech">Docker Containerized</span>
-                <span class="badge-tech">Go 1.22 REST API</span>
-                <span class="badge-tech">PostgreSQL</span>
+                <span class="badge-tech">
+                    <svg class="tech-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    Docker Containerized
+                </span>
+                <span class="badge-tech">
+                    <svg class="tech-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Go 1.22 REST API
+                </span>
+                <span class="badge-tech">
+                    <svg class="tech-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                    PostgreSQL
+                </span>
             </div>
         </div>
     </section>
@@ -84,7 +97,11 @@
         <header class="navbar">
             <div class="navbar-left">
                 <div class="logo">
-                    <span class="logo-icon">⚡</span>
+                    <span class="logo-icon">
+                        <svg class="logo-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </span>
                     <span class="logo-text">Task<span class="highlight">Flow</span></span>
                 </div>
             </div>
@@ -98,6 +115,7 @@
                     </div>
                 </div>
                 <button class="btn btn-outline btn-sm" onclick="handleLogout()" id="logout-btn">
+                    <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                     <span>Logout</span>
                 </button>
             </div>
@@ -108,28 +126,36 @@
             <!-- Stats Dashboard Bar -->
             <section class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon icon-total">📋</div>
+                    <div class="stat-icon icon-total">
+                        <svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
+                    </div>
                     <div class="stat-details">
                         <span class="stat-value" id="stat-total">0</span>
                         <span class="stat-label">Total Tasks</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-todo">⏳</div>
+                    <div class="stat-icon icon-todo">
+                        <svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
                     <div class="stat-details">
                         <span class="stat-value" id="stat-todo">0</span>
                         <span class="stat-label">To Do</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-progress">🚀</div>
+                    <div class="stat-icon icon-progress">
+                        <svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    </div>
                     <div class="stat-details">
                         <span class="stat-value" id="stat-progress">0</span>
                         <span class="stat-label">In Progress</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-completed">✅</div>
+                    <div class="stat-icon icon-completed">
+                        <svg class="stat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
                     <div class="stat-details">
                         <span class="stat-value" id="stat-completed">0</span>
                         <span class="stat-label">Completed</span>
@@ -140,7 +166,9 @@
             <!-- Action & Filter Bar -->
             <section class="toolbar">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
+                    <span class="search-icon">
+                        <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
                     <input type="text" id="search-input" placeholder="Search tasks by title or description..." oninput="debounceSearch()">
                 </div>
 
@@ -154,14 +182,15 @@
 
                     <select id="filter-priority" onchange="loadTasks()">
                         <option value="all">All Priorities</option>
-                        <option value="urgent">🔴 Urgent</option>
-                        <option value="high">🟠 High</option>
-                        <option value="medium">🟡 Medium</option>
-                        <option value="low">🟢 Low</option>
+                        <option value="urgent">● Urgent</option>
+                        <option value="high">● High</option>
+                        <option value="medium">● Medium</option>
+                        <option value="low">● Low</option>
                     </select>
 
                     <button class="btn btn-primary" onclick="openTaskModal()">
-                        <span>+ New Task</span>
+                        <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>New Task</span>
                     </button>
                 </div>
             </section>
@@ -173,10 +202,15 @@
 
             <!-- Empty State -->
             <div id="empty-state" class="empty-state hidden">
-                <div class="empty-icon">📂</div>
+                <div class="empty-icon">
+                    <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="9" y1="13" x2="15" y2="13"></line></svg>
+                </div>
                 <h2 class="empty-title">No tasks found</h2>
                 <p class="empty-subtitle">Get started by creating your first task or clearing your search filters!</p>
-                <button class="btn btn-primary" onclick="openTaskModal()">Create Task Now</button>
+                <button class="btn btn-primary" onclick="openTaskModal()">
+                    <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Create Task Now</span>
+                </button>
             </div>
         </main>
     </div>
@@ -215,10 +249,10 @@
                     <div class="form-group">
                         <label for="task-priority-input">Priority</label>
                         <select id="task-priority-input">
-                            <option value="low">🟢 Low</option>
-                            <option value="medium" selected>🟡 Medium</option>
-                            <option value="high">🟠 High</option>
-                            <option value="urgent">🔴 Urgent</option>
+                            <option value="low">● Low</option>
+                            <option value="medium" selected>● Medium</option>
+                            <option value="high">● High</option>
+                            <option value="urgent">● Urgent</option>
                         </select>
                     </div>
                 </div>
@@ -247,6 +281,7 @@
 
     <!-- Scripts -->
     <script src="js/api.js"></script>
+    <script src="js/icons.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
 </body>

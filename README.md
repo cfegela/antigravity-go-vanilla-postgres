@@ -1,6 +1,6 @@
 # ⚡ TaskFlow - Containerized Go + Postgres + Vanilla JS CRUD Application
 
-A modern, high-performance, containerized full-stack CRUD web application for Task & Project Management. Built with a Go REST API, PostgreSQL database, Vanilla JS/CSS frontend, and orchestrated via Docker Compose.
+A modern, high-performance, containerized full-stack CRUD web application for Task & Project Management. Built with a Go REST API, PostgreSQL database, Vanilla JS/CSS frontend, and orchestrated via Docker Compose or Podman.
 
 Antigravity wrote this in less than 5 minutes using Gemini Flash 3.6. God help us all.
 
@@ -11,8 +11,9 @@ Antigravity wrote this in less than 5 minutes using Gemini Flash 3.6. God help u
 - **🔒 Modern Authentication**: Secure JWT-based auth with Access & Refresh tokens stored in **HttpOnly Cookies** (protected against XSS attacks) and server-side token revocation.
 - **🚀 Go 1.22 REST API**: Standard library `net/http` pattern routing, bcrypt password hashing, CORS middleware, and PostgreSQL database integration.
 - **🗄️ PostgreSQL Database**: Auto-initialized schema with tables for `users`, `refresh_tokens`, and `tasks`. Indexed for high-performance querying.
-- **🎨 Glassmorphic Vanilla JS UI**: Built with pure HTML5, modern CSS3 (glowing gradients, Outfit/Inter typography, responsive grid), and ES JavaScript without external frameworks or dependencies.
-- **⚡ Docker Compose Orchestration**: Single command container orchestration (`docker compose up --build`) featuring health checks and Nginx reverse proxying (`/api/*`).
+- **🎨 Modern Vector Icon System**: Integrated high-resolution SVG vector icon helper (`js/icons.js`) replacing retro 1990s clip-art emojis across brand logos, dashboard statistics, category & status badges, priority indicators, due dates, action buttons, tech badges, and empty states.
+- **💎 Glassmorphic & Modern CSS UI**: Clean responsive layout built with HTML5 and CSS3 (Inter/Outfit Google typography, dark blue navbar, custom badges, and smooth action micro-animations).
+- **⚡ Container Orchestration**: Single command container deployment (`docker compose up --build` or `podman compose up --build`) featuring health checks and Nginx reverse proxying (`/api/*`).
 
 ---
 
@@ -20,7 +21,7 @@ Antigravity wrote this in less than 5 minutes using Gemini Flash 3.6. God help u
 
 ```
 antigravity-go-vanilla-postgres/
-├── docker-compose.yml        # Docker Compose configuration (db, backend, frontend)
+├── docker-compose.yml        # Docker / Podman Compose configuration (db, backend, frontend)
 ├── .env                      # Environment configuration
 ├── README.md                 # Project documentation
 ├── backend/                  # Go REST API Backend
@@ -40,32 +41,37 @@ antigravity-go-vanilla-postgres/
 └── frontend/                 # Vanilla JS/CSS Frontend
     ├── Dockerfile            # Nginx container setup
     ├── nginx.conf            # Nginx config & API reverse proxy
-    ├── index.html            # Main SPA HTML structure
+    ├── index.html            # Main SPA HTML structure with SVG icon elements
     ├── css/
-    │   └── styles.css        # Custom glassmorphic design system
+    │   └── styles.css        # Modern design system & SVG icon system styles
     └── js/
         ├── api.js            # HTTP client & silent token refresh handler
         ├── auth.js           # Auth UI & session management
+        ├── icons.js          # Modern SVG vector icon generator system
         └── app.js            # Task CRUD DOM interactions & statistics
 ```
 
 ---
 
-## 🚀 Quick Start (Running Locally via Docker)
+## 🚀 Quick Start (Running Locally via Docker or Podman)
 
 ### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running on your system.
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) installed and running on your system.
 
 ### Running the Application
 
 1. **Clone or navigate to the directory**:
    ```bash
-   cd /Users/chrisfegela/go-vanilla-crud
+   cd antigravity-go-vanilla-postgres
    ```
 
 2. **Start the containers**:
    ```bash
+   # Using Docker:
    docker compose up --build
+
+   # Or using Podman:
+   podman compose up --build
    ```
 
 3. **Access the application**:
@@ -98,9 +104,9 @@ antigravity-go-vanilla-postgres/
 
 ---
 
-## 🛠️ Testing Local Build without Docker (Optional)
+## 🛠️ Testing Local Build without Containers (Optional)
 
-To test the backend locally without Docker (requires a local PostgreSQL instance running):
+To test the backend locally without containers (requires a local PostgreSQL instance running):
 ```bash
 cd backend
 export DB_HOST=localhost DB_PORT=5432 DB_USER=postgres DB_PASSWORD=postgres DB_NAME=taskdb JWT_SECRET=testsecret
