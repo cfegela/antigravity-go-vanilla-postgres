@@ -61,31 +61,51 @@ function createTaskCardHTML(task) {
             <div class="task-header">
                 <h3 class="task-title">${escapeHtml(task.title)}</h3>
                 <div class="task-badges">
-                    <span class="badge badge-status-${task.status}">${formatStatusLabel(task.status)}</span>
+                    ${getStatusBadgeHTML(task.status)}
                 </div>
             </div>
 
             ${task.description ? `<p class="task-description">${escapeHtml(task.description)}</p>` : ''}
 
             <div class="task-badges">
-                <span class="badge badge-category">📁 ${escapeHtml(task.category || 'General')}</span>
-                <span class="badge badge-priority">🔥 ${escapeHtml(task.priority.toUpperCase())}</span>
+                <span class="badge badge-category">${Icons.folder('badge-icon')} ${escapeHtml(task.category || 'General')}</span>
+                <span class="badge badge-priority prio-${task.priority}">${Icons.priorityIcon(task.priority)} ${escapeHtml(task.priority.toUpperCase())}</span>
             </div>
 
             <div class="task-footer">
                 <div class="task-due-date ${isOverdue ? 'overdue' : ''}">
-                    📅 ${dueDateStr} ${isOverdue ? '<span style="color:var(--danger);font-weight:600;">(Overdue)</span>' : ''}
+                    ${Icons.calendar('due-icon')}
+                    <span>${dueDateStr}</span>
+                    ${isOverdue ? `<span class="overdue-tag">${Icons.alertTriangle('badge-icon overdue-icon')} Overdue</span>` : ''}
                 </div>
                 <div class="task-actions">
-                    <button class="btn-icon" title="Toggle Status" onclick="quickToggleStatus(${task.id}, '${task.status}')">
-                        ${task.status === 'completed' ? '↩️' : '✅'}
+                    <button class="btn-icon btn-action-toggle" title="${task.status === 'completed' ? 'Reopen Task' : 'Complete Task'}" onclick="quickToggleStatus(${task.id}, '${task.status}')">
+                        ${task.status === 'completed' ? Icons.undo('action-icon') : Icons.check('action-icon')}
                     </button>
-                    <button class="btn-icon" title="Edit Task" onclick="openTaskModal(${task.id})">✏️</button>
-                    <button class="btn-icon" title="Delete Task" onclick="deleteTask(${task.id})">🗑️</button>
+                    <button class="btn-icon btn-action-edit" title="Edit Task" onclick="openTaskModal(${task.id})">
+                        ${Icons.edit('action-icon')}
+                    </button>
+                    <button class="btn-icon btn-action-delete" title="Delete Task" onclick="deleteTask(${task.id})">
+                        ${Icons.trash('action-icon action-delete')}
+                    </button>
                 </div>
             </div>
         </article>
     `;
+}
+
+// Generate HTML for status badge with SVG icon
+function getStatusBadgeHTML(status) {
+    switch (status) {
+        case 'todo':
+            return `<span class="badge badge-status-todo">${Icons.clock('badge-icon')} To Do</span>`;
+        case 'in_progress':
+            return `<span class="badge badge-status-in_progress">${Icons.activity('badge-icon')} In Progress</span>`;
+        case 'completed':
+            return `<span class="badge badge-status-completed">${Icons.checkCircle('badge-icon')} Completed</span>`;
+        default:
+            return `<span class="badge badge-status-todo">${escapeHtml(status)}</span>`;
+    }
 }
 
 // Format status labels

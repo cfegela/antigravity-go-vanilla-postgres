@@ -158,7 +158,24 @@ h1, h2, h3, h4, .logo-text {
 }
 
 .logo-icon {
-    font-size: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(30, 64, 175, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--primary);
+}
+
+.navbar .logo-icon {
+    background: rgba(96, 165, 250, 0.15);
+    color: #60a5fa;
+}
+
+.logo-icon-svg {
+    width: 20px;
+    height: 20px;
 }
 
 .logo-text {
@@ -258,6 +275,9 @@ input:focus, select:focus, textarea:focus {
 }
 
 .badge-tech {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.72rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -265,6 +285,12 @@ input:focus, select:focus, textarea:focus {
     border-radius: 20px;
     color: var(--text-muted);
     font-weight: 500;
+}
+
+.tech-svg {
+    width: 14px;
+    height: 14px;
+    color: var(--primary);
 }
 
 /* BUTTONS */
@@ -315,7 +341,12 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-icon {
-    padding: 6px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
     border-radius: var(--radius-sm);
     background: transparent;
     border: 1px solid transparent;
@@ -328,6 +359,15 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-primary);
     background: var(--bg-secondary);
     border-color: var(--border-color);
+}
+
+.btn-icon:hover .action-delete {
+    color: var(--danger);
+}
+
+.action-icon {
+    width: 16px;
+    height: 16px;
 }
 
 /* DASHBOARD NAVBAR */
@@ -446,10 +486,19 @@ input:focus, select:focus, textarea:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
-    background: var(--primary-light);
-    color: var(--primary);
+    flex-shrink: 0;
+    transition: var(--transition-fast);
 }
+
+.stat-svg {
+    width: 22px;
+    height: 22px;
+}
+
+.icon-total { background: #eff6ff; color: #2563eb; }
+.icon-todo { background: #fffbeb; color: #d97706; }
+.icon-progress { background: #f0f9ff; color: #0284c7; }
+.icon-completed { background: #ecfdf5; color: #059669; }
 
 .stat-value {
     font-size: 1.7rem;
@@ -591,12 +640,12 @@ input:focus, select:focus, textarea:focus {
     text-transform: capitalize;
 }
 
-.badge-status-todo { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border-color); }
-.badge-status-in_progress { background: var(--info-bg); color: var(--info); border: 1px solid #bfdbfe; }
-.badge-status-completed { background: var(--success-bg); color: var(--success); border: 1px solid #a7f3d0; }
+.badge-status-todo { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.badge-status-in_progress { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.badge-status-completed { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
 
 .badge-category {
-    background: #f1f5f9;
+    background: #f8fafc;
     color: #475569;
     border: 1px solid var(--border-color);
 }
@@ -606,6 +655,11 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
 }
+
+.badge-priority.prio-low { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+.badge-priority.prio-medium { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+.badge-priority.prio-high { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.badge-priority.prio-urgent { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 
 .task-footer {
     display: flex;
@@ -621,6 +675,25 @@ input:focus, select:focus, textarea:focus {
     display: flex;
     align-items: center;
     gap: 4px;
+    flex-wrap: wrap;
+}
+
+.overdue-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 4px;
+    color: var(--danger);
+    font-weight: 600;
+    background: #fef2f2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #fecaca;
+    font-size: 0.72rem;
+}
+
+.overdue-icon {
+    color: var(--danger);
 }
 
 .task-actions {
@@ -644,7 +717,19 @@ input:focus, select:focus, textarea:focus {
 }
 
 .empty-icon {
-    font-size: 3.5rem;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.empty-svg {
+    width: 36px;
+    height: 36px;
 }
 
 .empty-title {
@@ -735,3 +820,33 @@ input:focus, select:focus, textarea:focus {
     from { opacity: 0; transform: scale(0.97); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* SVG Icon System Styles */
+.icon-svg, .btn-svg, .logo-icon-svg, .stat-svg, .search-svg, .empty-svg, .tech-svg {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.btn .btn-svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge-icon, .due-icon, .prio-icon {
+    width: 13px;
+    height: 13px;
+    margin-right: 4px;
+}
+
+.prio-urgent-icon { color: var(--prio-urgent); }
+.prio-high-icon { color: var(--prio-high); }
+.prio-medium-icon { color: var(--prio-medium); }
+.prio-low-icon { color: var(--prio-low); }
+
