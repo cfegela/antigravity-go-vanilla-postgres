@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskFlow - High-performance Containerized Task & Project Manager built with Go, PostgreSQL, Vanilla JS, and Docker.">
+    <title>TaskFlow | Modern Task & Project Manager</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- AUTH SECTION (Login / Register) -->
+    <section id="auth-section" class="auth-section">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">Task<span class="highlight">Flow</span></span>
+                </div>
+                <p class="auth-subtitle">Containerized Task Management Powered by Go & Postgres</p>
+            </div>
+
+            <!-- Auth Tabs -->
+            <div class="auth-tabs" role="tablist">
+                <button id="tab-login" class="tab-btn active" role="tab" aria-selected="true" onclick="switchAuthTab('login')">Sign In</button>
+                <button id="tab-register" class="tab-btn" role="tab" aria-selected="false" onclick="switchAuthTab('register')">Create Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="alex@example.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button type="submit" id="login-submit-btn" class="btn btn-primary btn-block">
+                    <span>Sign In</span>
+                    <div class="spinner hidden" id="login-spinner"></div>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required placeholder="alexdev" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" required placeholder="alex@example.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password (Min 6 characters)</label>
+                    <input type="password" id="register-password" minlength="6" required placeholder="••••••••" autocomplete="new-password">
+                </div>
+                <button type="submit" id="register-submit-btn" class="btn btn-primary btn-block">
+                    <span>Create Account</span>
+                    <div class="spinner hidden" id="register-spinner"></div>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <span class="badge-tech">Docker Containerized</span>
+                <span class="badge-tech">Go 1.22 REST API</span>
+                <span class="badge-tech">PostgreSQL</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD SECTION -->
+    <div id="app-dashboard" class="app-dashboard hidden">
+        <!-- Top Navigation Header -->
+        <header class="navbar">
+            <div class="navbar-left">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">Task<span class="highlight">Flow</span></span>
+                </div>
+            </div>
+            
+            <div class="navbar-right">
+                <div class="user-profile">
+                    <div class="avatar" id="user-avatar">A</div>
+                    <div class="user-info">
+                        <span class="username" id="user-display-name">Alex Dev</span>
+                        <span class="user-email" id="user-display-email">alex@example.com</span>
+                    </div>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="handleLogout()" id="logout-btn">
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="container">
+            <!-- Stats Dashboard Bar -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-total">📋</div>
+                    <div class="stat-details">
+                        <span class="stat-value" id="stat-total">0</span>
+                        <span class="stat-label">Total Tasks</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-todo">⏳</div>
+                    <div class="stat-details">
+                        <span class="stat-value" id="stat-todo">0</span>
+                        <span class="stat-label">To Do</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-progress">🚀</div>
+                    <div class="stat-details">
+                        <span class="stat-value" id="stat-progress">0</span>
+                        <span class="stat-label">In Progress</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-completed">✅</div>
+                    <div class="stat-details">
+                        <span class="stat-value" id="stat-completed">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action & Filter Bar -->
+            <section class="toolbar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search tasks by title or description..." oninput="debounceSearch()">
+                </div>
+
+                <div class="filters-group">
+                    <select id="filter-status" onchange="loadTasks()">
+                        <option value="all">All Statuses</option>
+                        <option value="todo">To Do</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <select id="filter-priority" onchange="loadTasks()">
+                        <option value="all">All Priorities</option>
+                        <option value="urgent">🔴 Urgent</option>
+                        <option value="high">🟠 High</option>
+                        <option value="medium">🟡 Medium</option>
+                        <option value="low">🟢 Low</option>
+                    </select>
+
+                    <button class="btn btn-primary" onclick="openTaskModal()">
+                        <span>+ New Task</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tasks Container / Grid -->
+            <section id="tasks-grid" class="tasks-grid">
+                <!-- Task items rendered dynamically by JS -->
+            </section>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-icon">📂</div>
+                <h2 class="empty-title">No tasks found</h2>
+                <p class="empty-subtitle">Get started by creating your first task or clearing your search filters!</p>
+                <button class="btn btn-primary" onclick="openTaskModal()">Create Task Now</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- CREATE / EDIT TASK MODAL -->
+    <div id="task-modal" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modal-title">Create New Task</h2>
+                <button class="modal-close" onclick="closeTaskModal()">&times;</button>
+            </div>
+
+            <form id="task-form" onsubmit="handleSaveTask(event)">
+                <input type="hidden" id="task-id">
+
+                <div class="form-group">
+                    <label for="task-title-input">Task Title *</label>
+                    <input type="text" id="task-title-input" required placeholder="e.g., Set up PostgreSQL connection pool">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-description-input">Description</label>
+                    <textarea id="task-description-input" rows="3" placeholder="Add additional details, acceptance criteria, or notes..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-status-input">Status</label>
+                        <select id="task-status-input">
+                            <option value="todo">To Do</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-priority-input">Priority</label>
+                        <select id="task-priority-input">
+                            <option value="low">🟢 Low</option>
+                            <option value="medium" selected>🟡 Medium</option>
+                            <option value="high">🟠 High</option>
+                            <option value="urgent">🔴 Urgent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-category-input">Category</label>
+                        <input type="text" id="task-category-input" placeholder="e.g., Backend, Frontend, DevOps" value="General">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-duedate-input">Due Date</label>
+                        <input type="date" id="task-duedate-input">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeTaskModal()">Cancel</button>
+                    <button type="submit" id="save-task-btn" class="btn btn-primary">
+                        <span>Save Task</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
