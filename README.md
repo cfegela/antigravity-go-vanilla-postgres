@@ -2,6 +2,8 @@
 
 A modern, high-performance, containerized full-stack CRUD web application for Task & Project Management. Built with a Go REST API, PostgreSQL database, Vanilla JS/CSS frontend, and orchestrated via Docker Compose.
 
+Antigravity wrote this in less than 5 minutes using Gemini Flash 3.6. God help us all.
+
 ---
 
 ## 🌟 Key Features
@@ -17,7 +19,7 @@ A modern, high-performance, containerized full-stack CRUD web application for Ta
 ## 📂 Project Architecture
 
 ```
-go-vanilla-crud/
+antigravity-go-vanilla-postgres/
 ├── docker-compose.yml        # Docker Compose configuration (db, backend, frontend)
 ├── .env                      # Environment configuration
 ├── README.md                 # Project documentation
